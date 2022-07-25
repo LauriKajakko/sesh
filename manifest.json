@@ -1,0 +1,20 @@
+{
+
+    "manifest_version": 2,
+    "name": "Sesh",
+    "version": "0.1",
+    "description": "Stores your tabs as a session that can be retrieved later.",
+    "icons": {
+        "48": "sesh.svg",
+        "96": "sesh.svg"
+    },
+    "permissions": [
+        "activeTab"
+    ],
+    "browser_action": {
+        "default_icon": "icons/sesh.svg",
+        "default_title": "Sesh",
+        "default_popup": "index.html"
+      }
+  }
+  
