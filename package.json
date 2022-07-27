@@ -1,0 +1,18 @@
+{
+  "name": "sesh",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "git@github.com:LauriKajakko/sesh.git",
+  "author": "LauriKajakko",
+  "license": "MIT",
+  "scripts": {
+    "run": "web-ext run",
+    "build": "esbuild src/index.ts --bundle --outfile=dist/index.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.14.50",
+    "typescript": "^4.7.4",
+    "web-ext": "^7.1.1",
+    "webextension-polyfill-ts": "^0.26.0"
+  }
+}

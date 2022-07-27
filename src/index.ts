@@ -1,3 +1,5 @@
+import { browser } from "webextension-polyfill-ts";
+
 const { storage, tabs } = browser;
 
 const save = async () => {
@@ -18,6 +20,7 @@ const retrieve = async () => {
 
 (() => {
   document.addEventListener("click", (e) => {
+    // @ts-ignore
     const [, action] = e.target.classList;
     ({ save, retrieve }[action]());
   });
