@@ -7,10 +7,13 @@
   "license": "MIT",
   "scripts": {
     "run": "web-ext run",
-    "build": "esbuild src/index.ts --bundle --outfile=dist/index.js"
+    "build:ts": "esbuild src/index.ts --bundle --outfile=dist/index.js",
+    "build:css": "npx tailwindcss -i ./src/index.css -o ./dist/index.css",
+    "build": "yarn build:ts && yarn build:css"
   },
   "devDependencies": {
     "esbuild": "^0.14.50",
+    "tailwindcss": "^3.1.6",
     "typescript": "^4.7.4",
     "web-ext": "^7.1.1",
     "webextension-polyfill-ts": "^0.26.0"
