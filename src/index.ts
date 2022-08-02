@@ -2,15 +2,15 @@ import { browser } from "webextension-polyfill-ts";
 
 const { storage, tabs } = browser;
 
-const save = async () => {
+const save = async (key: string) => {
   const allTabs = await tabs.query({});
   storage.local.set({
-    allTabs: allTabs,
+    [key]: allTabs,
   });
 };
 
-const retrieve = async () => {
-  const { allTabs } = await storage.local.get();
+const retrieve = async (key: string) => {
+  const { [key]: allTabs } = await storage.local.get();
   allTabs.forEach((element) => {
     tabs.create({
       url: element.url,
@@ -20,8 +20,16 @@ const retrieve = async () => {
 
 (() => {
   document.addEventListener("click", (e) => {
-    // @ts-ignore
-    const [, action] = e.target.classList;
-    ({ save, retrieve }[action]());
+    const { target } = e;
+    if (!(target instanceof HTMLButtonElement)) return;
+    if (target?.id === "save") {
+      const { value } = document.getElementById("input") as HTMLInputElement;
+      if (!value) return;
+      save(value);
+    } else {
+      const { value } = document.getElementById("input") as HTMLInputElement;
+      if (!value) return;
+      retrieve(value);
+    }
   });
 })();
