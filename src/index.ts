@@ -1,4 +1,5 @@
 import { browser } from "webextension-polyfill-ts";
+import { createHtmlList } from "./list";
 
 const { storage, tabs } = browser;
 
@@ -18,7 +19,15 @@ const retrieve = async (key: string) => {
   });
 };
 
+const retrieveAndListAll = async () => {
+  const all = await storage.local.get();
+  const keys = Object.keys(all);
+  const ul = createHtmlList(keys);
+  document.body.appendChild(ul);
+};
+
 (() => {
+  retrieveAndListAll();
   document.addEventListener("click", (e) => {
     const { target } = e;
     if (!(target instanceof HTMLButtonElement)) return;
