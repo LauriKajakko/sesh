@@ -1,5 +1,5 @@
 import { browser } from "webextension-polyfill-ts";
-import { createHtmlList } from "./list";
+import { appendToHtmlList, createHtmlList } from "./list";
 
 const { storage, tabs } = browser;
 
@@ -8,6 +8,7 @@ const save = async (key: string) => {
   storage.local.set({
     [key]: allTabs,
   });
+  appendToHtmlList(key);
 };
 
 const retrieve = async (key: string) => {
@@ -22,8 +23,7 @@ const retrieve = async (key: string) => {
 const retrieveAndListAll = async () => {
   const all = await storage.local.get();
   const keys = Object.keys(all);
-  const ul = createHtmlList(keys);
-  document.body.appendChild(ul);
+  createHtmlList(keys);
 };
 
 (() => {
