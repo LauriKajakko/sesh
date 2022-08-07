@@ -23,3 +23,8 @@ export const appendToHtmlList = (key: string) => {
   }
   createButtonToDiv(key, div);
 };
+
+export const getInputValue = (): string => {
+  const input = document.getElementById("input") as HTMLInputElement;
+  return input.value;
+};

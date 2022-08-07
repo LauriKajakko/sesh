@@ -1,42 +1,29 @@
-import { browser } from "webextension-polyfill-ts";
-import { appendToHtmlList, createHtmlList } from "./list";
+import { appendToHtmlList, createHtmlList, getInputValue } from "./dom";
+import { retrieveAllKeys, retrieveAndOpenTabs, saveTabs } from "./storage";
 
-const { storage, tabs } = browser;
+const retrieveAndListAll = async () =>
+  retrieveAllKeys().then(createHtmlList).catch();
 
-const save = async (key: string) => {
-  const allTabs = await tabs.query({});
-  storage.local.set({
-    [key]: allTabs,
-  });
-  appendToHtmlList(key);
+const onRetrieve = (key: string) => retrieveAndOpenTabs(key);
+
+const onSave = async () => {
+  const input = getInputValue();
+  if (!input) return;
+  await saveTabs(input);
+  appendToHtmlList(input);
 };
 
-const retrieve = async (key: string) => {
-  const { [key]: allTabs } = await storage.local.get();
-  allTabs.forEach((element) => {
-    tabs.create({
-      url: element.url,
-    });
-  });
-};
+const onClick = (event: MouseEvent) => {
+  const target = event.target as HTMLElement;
 
-const retrieveAndListAll = async () => {
-  const all = await storage.local.get();
-  const keys = Object.keys(all);
-  createHtmlList(keys);
+  if (target.id === "save") {
+    onSave();
+  } else {
+    onRetrieve(target.innerText);
+  }
 };
 
 (() => {
   retrieveAndListAll();
-  document.addEventListener("click", (e) => {
-    const { target } = e;
-    if (!(target instanceof HTMLButtonElement)) return;
-    if (target?.id === "save") {
-      const { value } = document.getElementById("input") as HTMLInputElement;
-      if (!value) return;
-      save(value);
-    } else {
-      retrieve(target.innerText);
-    }
-  });
+  document.addEventListener("click", onClick);
 })();
