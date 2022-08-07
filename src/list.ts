@@ -1,9 +1,10 @@
 export const createHtmlList = (list: string[]) => {
-  const ul = document.createElement("ul");
+  const ul = document.createElement("div");
   list.forEach((element) => {
-    const li = document.createElement("li");
-    li.innerText = element;
-    ul.appendChild(li);
+    const button = document.createElement("button");
+    button.innerText = element;
+    button.id = element;
+    ul.appendChild(button);
   });
   return ul;
 };

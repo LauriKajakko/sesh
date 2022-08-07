@@ -36,9 +36,7 @@ const retrieveAndListAll = async () => {
       if (!value) return;
       save(value);
     } else {
-      const { value } = document.getElementById("input") as HTMLInputElement;
-      if (!value) return;
-      retrieve(value);
+      retrieve(target.innerText);
     }
   });
 })();
