@@ -1,19 +1,18 @@
+const containerId = "container";
 const listId = "sesh-list";
 const buttonClassList = ["border-2", "rounded", "px-2"];
 
 const createButtonToDiv = (text: string, div: HTMLDivElement) => {
   const button = document.createElement("button");
   button.innerText = text;
-  button.id = text;
-  buttonClassList.forEach((className) => button.classList.add(className));
+  button.classList.add(...buttonClassList);
   div.appendChild(button);
 };
 
 export const createHtmlList = (list: string[]) => {
   const div = document.createElement("div");
-  div.id = listId;
   list.forEach((element) => createButtonToDiv(element, div));
-  document.body.appendChild(div);
+  document.getElementById(containerId)?.appendChild(div);
 };
 
 export const appendToHtmlList = (key: string) => {
