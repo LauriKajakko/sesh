@@ -1,5 +1,6 @@
 import {
   appendToHtmlList,
+  clearInput,
   createHtmlList,
   existsInHtmlList,
   getInputValue,
@@ -28,6 +29,7 @@ const onSave = async () => {
   if (!input) return;
   await saveTabs(input);
   if (!existsInHtmlList(input)) appendToHtmlList(input);
+  clearInput();
 };
 
 const onClick = (event: MouseEvent) => {
