@@ -13,11 +13,14 @@ export const deleteTabs = (key: string) => storage.local.remove(key);
 
 export const retrieveAndOpenTabs = async (key: string) => {
   const { [key]: allTabs } = await storage.local.get();
+  const currentTabs = await tabs.query({});
   allTabs.forEach((element) => {
     tabs.create({
       url: element.url,
     });
   });
+  if (currentTabs.length > 0)
+    await tabs.remove(currentTabs.map((tab) => tab.id as number));
 };
 
 export const retrieveAllKeys = async () => {
