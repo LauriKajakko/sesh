@@ -6,7 +6,7 @@
   "author": "LauriKajakko",
   "license": "MIT",
   "scripts": {
-    "run": "web-ext run",
+    "dev": "web-ext run",
     "build:ts": "esbuild src/index.ts --bundle --outfile=dist/index.js",
     "build:css": "npx tailwindcss -i ./src/index.css -o ./dist/index.css",
     "build": "yarn build:ts && yarn build:css"
