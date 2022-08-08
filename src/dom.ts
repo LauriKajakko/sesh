@@ -51,3 +51,8 @@ export const getInputValue = (): string => {
   const input = document.getElementById("input") as HTMLInputElement;
   return input.value;
 };
+
+export const existsInHtmlList = (key: string): boolean => {
+  const button = document.getElementById(key);
+  return isHtmlElement(button);
+};
