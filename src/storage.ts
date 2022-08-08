@@ -9,6 +9,8 @@ export const saveTabs = async (key: string) => {
   });
 };
 
+export const deleteTabs = (key: string) => storage.local.remove(key);
+
 export const retrieveAndOpenTabs = async (key: string) => {
   const { [key]: allTabs } = await storage.local.get();
   allTabs.forEach((element) => {
