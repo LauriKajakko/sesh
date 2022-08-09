@@ -14,8 +14,8 @@ const createButtonsToDiv = (text: string, div: HTMLDivElement) => {
   deleteIcon.classList.add(...buttonClassList);
   button.classList.add(...buttonClassList);
 
-  deleteIcon.id = "delete-" + text;
-  button.id = text;
+  deleteIcon.id = `delete-${text}`;
+  button.id = `retrieve-${text}`;
 
   deleteIcon.src = "../icons/x.svg";
   button.innerText = text;
@@ -41,7 +41,7 @@ export const appendToHtmlList = (key: string) => {
 };
 
 export const removeFromHtmlList = (key: string) => {
-  const button = document.getElementById(key);
+  const button = document.getElementById(`retrieve-${key}`);
   const deleteButton = document.getElementById(`delete-${key}`);
   if (isHtmlElement(button)) button.remove();
   if (isHtmlElement(deleteButton)) deleteButton.remove();

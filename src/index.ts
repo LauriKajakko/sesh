@@ -34,14 +34,12 @@ const onSave = async () => {
 
 const onClick = (event: MouseEvent) => {
   const target = event.target as HTMLElement;
-  if (target.id === "save") {
-    onSave();
-  } else if (target.id.startsWith("delete-")) {
-    const [, key] = target.id.split("-");
-    onDelete(key);
-  } else {
-    onRetrieve(target.innerText);
-  }
+  const [action, key] = target.id.split("-");
+  ({
+    save: onSave,
+    retrieve: onRetrieve,
+    delete: onDelete,
+  }[action](key));
 };
 
 (() => {
