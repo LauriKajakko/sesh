@@ -15,6 +15,6 @@
   "browser_action": {
     "default_icon": "icons/sesh.svg",
     "default_title": "Sesh",
-    "default_popup": "popup/index.html"
+    "default_popup": "index.html"
   }
 }
