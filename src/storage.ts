@@ -19,8 +19,8 @@ export const retrieveAndOpenTabs = async (key: string) => {
       url: element.url,
     });
   });
-  if (currentTabs.length > 0)
-    await tabs.remove(currentTabs.map((tab) => tab.id as number));
+  await tabs.remove(currentTabs.map((tab) => tab.id as number));
+  return currentTabs;
 };
 
 export const retrieveAllKeys = async () => {
