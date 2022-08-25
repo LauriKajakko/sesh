@@ -9,7 +9,8 @@
     "dev": "web-ext run",
     "build:ts": "esbuild src/index.ts --bundle --outfile=dist/index.js",
     "build:css": "npx tailwindcss -i ./src/index.css -o ./dist/index.css",
-    "build": "yarn build:ts && yarn build:css"
+    "build": "yarn build:ts && yarn build:css",
+    "sign": "web-ext sign --api-key=$(grep ISSUER .env | cut -d '=' -f2) --api-secret=$(grep SECRET .env | cut -d '=' -f2)"
   },
   "devDependencies": {
     "esbuild": "^0.14.50",
