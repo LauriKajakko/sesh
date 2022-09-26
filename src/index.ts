@@ -4,6 +4,7 @@ import {
   createHtmlList,
   existsInHtmlList,
   getInputValue,
+  indicateSaved,
   removeFromHtmlList,
 } from "./dom";
 import {
@@ -32,6 +33,12 @@ const onSave = async () => {
   clearInput();
 };
 
+const onRefresh = async (key: string) => {
+  await deleteTabs(key);
+  await saveTabs(key);
+  indicateSaved(key);
+};
+
 const onClick = (event: MouseEvent) => {
   const target = event.target as HTMLElement;
   const [action, key] = target.id.split("-");
@@ -39,6 +46,7 @@ const onClick = (event: MouseEvent) => {
     save: onSave,
     retrieve: onRetrieve,
     delete: onDelete,
+    refresh: onRefresh,
   }[action](key));
 };
 

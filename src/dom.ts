@@ -5,23 +5,53 @@ const buttonClassList = ["border-2", "rounded", "px-2"];
 const isHtmlElement = (element: any): element is HTMLElement =>
   element instanceof HTMLElement;
 
+interface ButtonOptions {
+  id: string;
+  text?: string;
+  iconPath?: string;
+}
+
+const createButton = ({ id, text, iconPath }: ButtonOptions) => {
+  const button = document.createElement("button");
+  button.id = id;
+  button.classList.add(...buttonClassList);
+  if (text) button.innerText = text;
+
+  if (iconPath) {
+    const icon = document.createElement("img");
+    icon.src = iconPath;
+    button.appendChild(icon);
+    icon.onclick = () => button.click();
+  }
+
+  return button;
+};
+
 const createButtonsToDiv = (text: string, div: HTMLDivElement) => {
   const wrapper = document.createElement("div");
-  const button = document.createElement("button");
-  const deleteIcon = document.createElement("img");
-
   wrapper.classList.add("flex", "flex-row", "justify-between", "items-center");
-  deleteIcon.classList.add(...buttonClassList);
-  button.classList.add(...buttonClassList);
+  wrapper.id = text;
 
-  deleteIcon.id = `delete-${text}`;
-  button.id = `retrieve-${text}`;
+  const rightButtonWrapper = document.createElement("div");
+  rightButtonWrapper.classList.add("flex", "flex-row", "items-center");
 
-  deleteIcon.src = "../icons/x.svg";
-  button.innerText = text;
+  const retrieveButton = createButton({
+    id: `retrieve-${text}`,
+    text,
+  });
+  const deleteButton = createButton({
+    id: `delete-${text}`,
+    iconPath: "../icons/x.svg",
+  });
+  const refreshButton = createButton({
+    id: `refresh-${text}`,
+    iconPath: "../icons/refresh.svg",
+  });
 
-  wrapper.appendChild(button);
-  wrapper.appendChild(deleteIcon);
+  rightButtonWrapper.appendChild(refreshButton);
+  rightButtonWrapper.appendChild(deleteButton);
+  wrapper.appendChild(retrieveButton);
+  wrapper.appendChild(rightButtonWrapper);
   div.appendChild(wrapper);
 };
 
@@ -40,12 +70,8 @@ export const appendToHtmlList = (key: string) => {
   createButtonsToDiv(key, div);
 };
 
-export const removeFromHtmlList = (key: string) => {
-  const button = document.getElementById(`retrieve-${key}`);
-  const deleteButton = document.getElementById(`delete-${key}`);
-  if (isHtmlElement(button)) button.remove();
-  if (isHtmlElement(deleteButton)) deleteButton.remove();
-};
+export const removeFromHtmlList = (key: string) =>
+  document.getElementById(key)?.remove();
 
 export const getInputValue = (): string => {
   const input = document.getElementById("input") as HTMLInputElement;
@@ -60,4 +86,13 @@ export const clearInput = () => {
 export const existsInHtmlList = (key: string): boolean => {
   const button = document.getElementById(key);
   return isHtmlElement(button);
+};
+
+export const indicateSaved = (key: string) => {
+  const button = document.getElementById(`refresh-${key}`) as HTMLButtonElement;
+  const icon = button.children[0] as HTMLImageElement;
+  icon.src = "../icons/check.svg";
+  setTimeout(() => {
+    icon.src = "../icons/refresh.svg";
+  }, 3000);
 };
