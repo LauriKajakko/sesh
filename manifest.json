@@ -2,16 +2,12 @@
   "description": "",
   "manifest_version": 2,
   "name": "Sesh",
-  "version": "1.0",
+  "version": "1.0.1",
   "homepage_url": "https://github.com/LauriKajakko/sesh",
   "icons": {
     "48": "icons/sesh.svg"
   },
-  "permissions": [
-    "activeTab",
-    "tabs",
-    "storage"
-  ],
+  "permissions": ["activeTab", "tabs", "storage"],
   "browser_action": {
     "default_icon": "icons/sesh.svg",
     "default_title": "Sesh",
