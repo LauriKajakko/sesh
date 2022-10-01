@@ -53,4 +53,7 @@ const onClick = (event: MouseEvent) => {
 (() => {
   retrieveAndListAll();
   document.addEventListener("click", onClick);
+  document.getElementById("input")?.addEventListener("keyup", (event) => {
+    if (event.key === "Enter") onSave();
+  });
 })();
